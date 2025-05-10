@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Diante</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Global reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: url('Images/setup_diante.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* Overlay to darken background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Photo de profil */
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 3px solid #fff;
+    }
+
+    /* Titre */
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    /* Liens sociaux */
+    .links {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .link {
+      background-color: rgba(41, 41, 61, 0.9);
+      color: white;
+      text-align: left;
+      padding: 15px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s;
+    }
+
+    .link i {
+      font-size: 22px;
+      width: 25px;
+    }
+
+    .link:hover {
+      background-color: rgba(58, 58, 90, 0.9);
+    }
+
+    /* Biographie */
+    .bio-section {
+      margin-top: 60px;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      color: #f0f0f0;
+    }
+
+    /* Vidéos */
+    .videos {
+      padding: 60px 20px;
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .video-container {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .video {
+      display: inline-block;
+      width: 180px; /* Format short */
+      height: 320px; /* Format short */
+      background-color: black;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .video img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video:hover {
+      transform: scale(1.05);
+    }
+
+    /* Vidéo longue */
+    .long-video {
+      display: inline-block;
+      width: 320px;  /* Format long 16:9 */
+      height: 180px;
+      background-color: black;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .long-video img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Responsivité mobile */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+
+      .links {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .link {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .bio-section {
+        padding: 30px 15px;
+      }
+
+      .videos {
+        padding: 30px 15px;
+      }
+
+      .video-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .video {
+        width: 100%;
+        height: 0;
+        padding-top: 177.78%; /* Aspect ratio 9:16 */
+        position: relative;
+      }
+
+      .long-video {
+        width: 100%;
+        height: 0;
+        padding-top: 56.25%; /* Aspect ratio 16:9 */
+        position: relative;
+      }
+
+      .video-title {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .video-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <img src="Images/photo_profil_diante.jpg" alt="Photo de profil" class="profile-pic">
+    <h1>@Diante</h1>
+
+    <div class="links">
+      <a class="link" href="https://www.youtube.com/@diante_off" target="_blank">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <a class="link" href="https://www.twitch.tv/diante1351" target="_blank">
+        <i class="fab fa-twitch"></i> Twitch
+      </a>
+      <a class="link" href="https://discord.gg/8dfpzTM5" target="_blank">
+        <i class="fab fa-discord"></i> Discord
+      </a>
+    </div>
+  </div>
+
+  <!-- Biographie -->
+  <div class="bio-section">
+    <h2>Biographie</h2>
+    <p>Salut, moi c’est Liam, mais en ligne tu me connais sûrement sous le nom de Diante. Je suis créateur de contenu sur YouTube, et je fais surtout des vidéos sur du Montage et Fortnite. J’ai lancé ma chaîne pour partager ma passion du gaming, que ce soit à travers du gameplay, des Montages ou des trucs amusants ! J’aime faire des concours, faire rire les gens, et surtout faire plaisir à la communauté ! Si t’aimes le Montage, Fortnite ou juste passer un bon moment, t’es au bon endroit. Bienvenue dans l’univers Diante 
+  </div>
+
+  <!-- Vidéos -->
+  <div class="videos">
+    <h2>Dernières vidéos</h2>
+    <div class="video-container">
+      <!-- Vidéo short 1 -->
+      <div class="video">
+        <a href="https://youtube.com/shorts/VmvufdxDSh4?si=s__79yGolVq3auZE" target="_blank">
+          <img src="https://img.youtube.com/vi/VmvufdxDSh4/hqdefault.jpg" alt="Miniature vidéo short 1" />
+        </a>
+      </div>
+      <!-- Vidéo short 2 -->
+      <div class="video">
+        <a href="https://youtube.com/shorts/LnrP_LOt6u4?si=LrF0-Lmlb8JqKZbN" target="_blank">
+          <img src="https://img.youtube.com/vi/LnrP_LOt6u4/hqdefault.jpg" alt="Miniature vidéo short 2" />
+        </a>
+      </div>
+      <!-- Vidéo short 3 -->
+      <div class="video">
+        <a href="https://youtube.com/shorts/qUpJG-lcjsg?si=Hqqbec6kdf88iVLw" target="_blank">
+          <img src="https://img.youtube.com/vi/qUpJG-lcjsg/hqdefault.jpg" alt="Miniature vidéo short 3" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Vidéo longue -->
+    <div class="video-container">
+      <div class="long-video">
+        <a href="https://youtu.be/oDMw7sNDs4M?si=bx9SYb-TugYnZyYe" target="_blank">
+          <img src="https://img.youtube.com/vi/oDMw7sNDs4M/hqdefault.jpg" alt="Miniature vidéo longue" />
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
