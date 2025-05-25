@@ -11,6 +11,9 @@
     input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
     button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
     h1 { text-align: center; }
+    #preview { margin-top: 40px; background: white; padding: 20px; border-radius: 10px; }
+    #siteCodeOutput { white-space: pre-wrap; background: #eee; padding: 10px; border-radius: 10px; margin-top: 20px; }
+    #copyBtn { display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -77,13 +80,15 @@
     <button type="submit">Générer mon site</button>
   </form>
 
+  <div id="preview"></div>
+  <button id="copyBtn" style="display:none">Copier le code</button>
+  <div id="siteCodeOutput" style="display:none"></div>
+
   <script>
     document.getElementById('siteForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const data = new FormData(this);
       const values = Object.fromEntries(data.entries());
-      console.log("Infos utilisateur :", values);
-      alert("Code généré dans la console ! Tu peux maintenant le copier dans un fichier HTML.");
 
       const siteCode = `<!DOCTYPE html>
 <html lang="${values.lang}">
@@ -127,7 +132,19 @@
 </body>
 </html>`;
 
-      console.log(siteCode);
+      const previewFrame = `<iframe style="width:100%; height:500px; border:1px solid #ccc;" srcdoc='${siteCode.replace(/'/g, "&#39;")}'></iframe>`;
+
+      document.getElementById("preview").innerHTML = "<h2>Aperçu du site</h2>" + previewFrame;
+      document.getElementById("siteCodeOutput").textContent = siteCode;
+      document.getElementById("siteCodeOutput").style.display = "block";
+      document.getElementById("copyBtn").style.display = "block";
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", function() {
+      const codeText = document.getElementById("siteCodeOutput").textContent;
+      navigator.clipboard.writeText(codeText).then(() => {
+        alert("Code copié dans le presse-papiers !");
+      });
     });
   </script>
 </body>
