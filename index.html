@@ -2,296 +2,133 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profil Diante</title>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créateur de site</title>
   <style>
-    /* Global reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      background: url('Images/setup_diante.jpg') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      overflow-x: hidden;
-    }
-
-    /* Overlay to darken background */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    /* Photo de profil */
-    .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 3px solid #fff;
-    }
-
-    /* Titre */
-    h1 {
-      margin-bottom: 20px;
-      font-size: 28px;
-      color: #fff;
-      text-transform: uppercase;
-    }
-
-    /* Liens sociaux */
-    .links {
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .link {
-      background-color: rgba(41, 41, 61, 0.9);
-      color: white;
-      text-align: left;
-      padding: 15px 20px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: background 0.3s;
-    }
-
-    .link i {
-      font-size: 22px;
-      width: 25px;
-    }
-
-    .link:hover {
-      background-color: rgba(58, 58, 90, 0.9);
-    }
-
-    /* Biographie */
-    .bio-section {
-      margin-top: 60px;
-      padding: 40px 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 12px;
-      max-width: 800px;
-      width: 100%;
-      text-align: center;
-      color: #f0f0f0;
-    }
-
-    /* Vidéos */
-    .videos {
-      padding: 60px 20px;
-      width: 100%;
-      max-width: 800px;
-      text-align: center;
-    }
-
-    .video-container {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .video {
-      display: inline-block;
-      width: 180px; /* Format short */
-      height: 320px; /* Format short */
-      background-color: black;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      text-align: center;
-      position: relative;
-    }
-
-    .video img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .video:hover {
-      transform: scale(1.05);
-    }
-
-    /* Vidéo longue */
-    .long-video {
-      display: inline-block;
-      width: 320px;  /* Format long 16:9 */
-      height: 180px;
-      background-color: black;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      text-align: center;
-      position: relative;
-    }
-
-    .long-video img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Responsivité mobile */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-
-      .profile-pic {
-        width: 120px;
-        height: 120px;
-      }
-
-      .links {
-        max-width: 100%;
-        width: 100%;
-      }
-
-      .link {
-        font-size: 16px;
-        padding: 12px;
-      }
-
-      .bio-section {
-        padding: 30px 15px;
-      }
-
-      .videos {
-        padding: 30px 15px;
-      }
-
-      .video-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 20px;
-      }
-
-      .video {
-        width: 100%;
-        height: 0;
-        padding-top: 177.78%; /* Aspect ratio 9:16 */
-        position: relative;
-      }
-
-      .long-video {
-        width: 100%;
-        height: 0;
-        padding-top: 56.25%; /* Aspect ratio 16:9 */
-        position: relative;
-      }
-
-      .video-title {
-        font-size: 18px;
-        margin-top: 10px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .video-title {
-        font-size: 16px;
-      }
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    form { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+    h1 { text-align: center; }
   </style>
 </head>
 <body>
-  <div class="content">
-    <img src="Images/photo_profil_diante.jpg" alt="Photo de profil" class="profile-pic">
-    <h1>@Diante</h1>
+  <h1>Créer un site personnalisé</h1>
+  <form id="siteForm">
+    <label>Titre du site</label>
+    <input type="text" name="title" required>
 
-    <div class="links">
-      <a class="link" href="https://www.youtube.com/@diante_off" target="_blank">
-        <i class="fab fa-youtube"></i> YouTube
-      </a>
-      <a class="link" href="https://www.twitch.tv/diante1351" target="_blank">
-        <i class="fab fa-twitch"></i> Twitch
-      </a>
-      <a class="link" href="https://discord.gg/8dfpzTM5" target="_blank">
-        <i class="fab fa-discord"></i> Discord
-      </a>
-    </div>
-  </div>
+    <label>Texte d'introduction</label>
+    <textarea name="intro" rows="4" required></textarea>
 
-  <!-- Biographie -->
-  <div class="bio-section">
-    <h2>Biographie</h2>
-    <p>Salut, moi c’est Liam, mais en ligne tu me connais sûrement sous le nom de Diante. Je suis créateur de contenu sur YouTube, et je fais surtout des vidéos sur du Montage et Fortnite. J’ai lancé ma chaîne pour partager ma passion du gaming, que ce soit à travers du gameplay, des Montages ou des trucs amusants ! J’aime faire des concours, faire rire les gens, et surtout faire plaisir à la communauté ! Si t’aimes le Montage, Fortnite ou juste passer un bon moment, t’es au bon endroit. Bienvenue dans l’univers Diante 
-  </div>
+    <label>Image de bannière (URL)</label>
+    <input type="url" name="banner">
 
-  <!-- Vidéos -->
-  <div class="videos">
-    <h2>Dernières vidéos</h2>
-    <div class="video-container">
-      <!-- Vidéo short 1 -->
-      <div class="video">
-        <a href="https://youtube.com/shorts/VmvufdxDSh4?si=s__79yGolVq3auZE" target="_blank">
-          <img src="https://img.youtube.com/vi/VmvufdxDSh4/hqdefault.jpg" alt="Miniature vidéo short 1" />
-        </a>
-      </div>
-      <!-- Vidéo short 2 -->
-      <div class="video">
-        <a href="https://youtube.com/shorts/LnrP_LOt6u4?si=LrF0-Lmlb8JqKZbN" target="_blank">
-          <img src="https://img.youtube.com/vi/LnrP_LOt6u4/hqdefault.jpg" alt="Miniature vidéo short 2" />
-        </a>
-      </div>
-      <!-- Vidéo short 3 -->
-      <div class="video">
-        <a href="https://youtube.com/shorts/qUpJG-lcjsg?si=Hqqbec6kdf88iVLw" target="_blank">
-          <img src="https://img.youtube.com/vi/qUpJG-lcjsg/hqdefault.jpg" alt="Miniature vidéo short 3" />
-        </a>
-      </div>
-    </div>
+    <label>Couleur de fond</label>
+    <input type="color" name="bgcolor">
 
-    <!-- Vidéo longue -->
-    <div class="video-container">
-      <div class="long-video">
-        <a href="https://youtu.be/oDMw7sNDs4M?si=bx9SYb-TugYnZyYe" target="_blank">
-          <img src="https://img.youtube.com/vi/oDMw7sNDs4M/hqdefault.jpg" alt="Miniature vidéo longue" />
-        </a>
-      </div>
-    </div>
-  </div>
+    <label>Style de police</label>
+    <select name="font">
+      <option value="Arial, sans-serif">Sans Serif (Arial)</option>
+      <option value="Georgia, serif">Serif (Georgia)</option>
+      <option value="Courier New, monospace">Monospace (Courier)</option>
+    </select>
+
+    <label>Texte du bouton principal</label>
+    <input type="text" name="buttonText">
+
+    <label>Lien du bouton</label>
+    <input type="url" name="buttonLink">
+
+    <label>Section "À propos"</label>
+    <textarea name="about" rows="3"></textarea>
+
+    <label>Adresse e-mail de contact</label>
+    <input type="email" name="email">
+
+    <label>Liens réseaux sociaux (séparés par des virgules)</label>
+    <input type="text" name="socials">
+
+    <label>Favicon (URL)</label>
+    <input type="url" name="favicon">
+
+    <label>Disposition du site</label>
+    <select name="layout">
+      <option value="1col">Une colonne</option>
+      <option value="2col">Deux colonnes</option>
+    </select>
+
+    <label>Langue du site</label>
+    <select name="lang">
+      <option value="fr">Français</option>
+      <option value="en">Anglais</option>
+    </select>
+
+    <label>Formulaire de contact</label>
+    <select name="contactForm">
+      <option value="yes">Oui</option>
+      <option value="no">Non</option>
+    </select>
+
+    <label>Texte de pied de page</label>
+    <input type="text" name="footer">
+
+    <button type="submit">Générer mon site</button>
+  </form>
+
+  <script>
+    document.getElementById('siteForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      const values = Object.fromEntries(data.entries());
+      console.log("Infos utilisateur :", values);
+      alert("Code généré dans la console ! Tu peux maintenant le copier dans un fichier HTML.");
+
+      const siteCode = `<!DOCTYPE html>
+<html lang="${values.lang}">
+<head>
+  <meta charset='UTF-8'>
+  <title>${values.title}</title>
+  ${values.favicon ? `<link rel="icon" href="${values.favicon}">` : ''}
+  <style>
+    body { background: ${values.bgcolor}; font-family: ${values.font}; padding: 20px; }
+    header img { width: 100%; max-height: 300px; object-fit: cover; }
+    .btn { background: #333; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 20px; }
+    .layout-2col main { display: flex; gap: 20px; }
+    .layout-2col main > section { flex: 1; }
+  </style>
+</head>
+<body class="layout-${values.layout}">
+  <header>
+    <h1>${values.title}</h1>
+    ${values.banner ? `<img src="${values.banner}" alt="Bannière">` : ''}
+  </header>
+  <main>
+    <section>
+      <p>${values.intro}</p>
+      ${values.buttonText && values.buttonLink ? `<a class='btn' href='${values.buttonLink}'>${values.buttonText}</a>` : ''}
+    </section>
+    ${values.about ? `<section><h2>À propos</h2><p>${values.about}</p></section>` : ''}
+    ${values.email ? `<section><h2>Contact</h2><p>Contactez-moi à : <a href='mailto:${values.email}'>${values.email}</a></p></section>` : ''}
+    ${values.socials ? `<section><h2>Réseaux sociaux</h2><p>${values.socials}</p></section>` : ''}
+    ${values.contactForm === "yes" ? `
+      <section>
+        <h2>Formulaire de contact</h2>
+        <form>
+          <input type='text' placeholder='Votre nom'><br>
+          <input type='email' placeholder='Votre email'><br>
+          <textarea placeholder='Votre message'></textarea><br>
+          <button>Envoyer</button>
+        </form>
+      </section>` : ''}
+  </main>
+  <footer><p>${values.footer}</p></footer>
+</body>
+</html>`;
+
+      console.log(siteCode);
+    });
+  </script>
 </body>
 </html>
