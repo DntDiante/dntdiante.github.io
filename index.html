@@ -7,17 +7,17 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #e0e0e0;
       padding: 20px;
-      background: #f0f2f5;
-      color: #333;
     }
     form {
-      background: #ffffff;
+      background: #1e1e1e;
       padding: 30px;
       border-radius: 12px;
-      max-width: 700px;
+      max-width: 800px;
       margin: auto;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
     }
     label {
       display: block;
@@ -28,58 +28,61 @@
       width: 100%;
       padding: 10px;
       margin-top: 5px;
-      border: 1px solid #ccc;
+      border: none;
       border-radius: 6px;
       font-size: 14px;
+      background-color: #2a2a2a;
+      color: #fff;
     }
     button {
       margin-top: 20px;
       padding: 12px 24px;
       font-size: 16px;
-      background-color: #007bff;
+      background-color: #0d6efd;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #0b5ed7;
     }
-    h1 {
+    h1, h2 {
       text-align: center;
-      color: #2c3e50;
+      color: #ffffff;
     }
-    #preview {
+    #preview, #instructions {
       margin-top: 40px;
-      background: white;
+      background: #1e1e1e;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
       max-width: 900px;
       margin-left: auto;
       margin-right: auto;
     }
     #siteCodeOutput {
       white-space: pre-wrap;
-      background: #f5f5f5;
+      background: #2a2a2a;
       padding: 15px;
       border-radius: 8px;
       margin-top: 20px;
       font-family: monospace;
+      color: #ffffff;
     }
     #copyBtn {
       display: block;
       margin: 20px auto;
       padding: 10px 20px;
       font-size: 16px;
-      background-color: #28a745;
+      background-color: #198754;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
     }
     #copyBtn:hover {
-      background-color: #218838;
+      background-color: #157347;
     }
   </style>
 </head>
@@ -95,14 +98,18 @@
     <label>Image de bannière (URL)</label>
     <input type="url" name="banner">
 
-    <label>Couleur de fond</label>
+    <label>Couleur de fond principale</label>
     <input type="color" name="bgcolor">
+
+    <label>Couleur du texte</label>
+    <input type="color" name="textcolor">
 
     <label>Style de police</label>
     <select name="font">
       <option value="Arial, sans-serif">Sans Serif (Arial)</option>
       <option value="Georgia, serif">Serif (Georgia)</option>
       <option value="Courier New, monospace">Monospace (Courier)</option>
+      <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Moderne (Segoe UI)</option>
     </select>
 
     <label>Texte du bouton principal</label>
@@ -144,18 +151,44 @@
     <label>Texte de pied de page</label>
     <input type="text" name="footer">
 
+    <label>Image de fond (URL)</label>
+    <input type="url" name="bgimage">
+
+    <label>Inclure une carte Google Maps ?</label>
+    <select name="map">
+      <option value="no">Non</option>
+      <option value="yes">Oui</option>
+    </select>
+
     <button type="submit">Générer mon site</button>
   </form>
 
   <div id="preview"></div>
   <button id="copyBtn" style="display:none">Copier le code</button>
   <div id="siteCodeOutput" style="display:none"></div>
+  <div id="instructions" style="display:none">
+    <h2>Étapes pour mettre en ligne sur GitHub Pages</h2>
+    <ol>
+      <li>Copie le code généré ci-dessus.</li>
+      <li>Va sur <a href="https://github.com" target="_blank">GitHub.com</a> et connecte-toi ou crée un compte.</li>
+      <li>Crée un nouveau dépôt (repository).</li>
+      <li>Nom du dépôt : <strong>ton_nom_utilisateur.github.io</strong></li>
+      <li>Dans l'onglet "Code", clique sur "Add file" > "Create new file".</li>
+      <li>Nom du fichier : <strong>index.html</strong></li>
+      <li>Colle ton code dans l’éditeur, puis clique sur "Commit new file".</li>
+      <li>Ton site est en ligne à l’adresse : <strong>https://ton_nom_utilisateur.github.io</strong></li>
+    </ol>
+  </div>
 
   <script>
     document.getElementById('siteForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const data = new FormData(this);
       const values = Object.fromEntries(data.entries());
+
+      const bgImageStyle = values.bgimage ? `background-image: url('${values.bgimage}'); background-size: cover; background-position: center;` : '';
+
+      const mapEmbed = values.map === "yes" ? `<section><h2>Localisation</h2><iframe src='https://maps.google.com/maps?q=Paris&t=&z=13&ie=UTF8&iwloc=&output=embed' width='100%' height='300' style='border:0;'></iframe></section>` : '';
 
       const siteCode = `<!DOCTYPE html>
 <html lang="${values.lang}">
@@ -164,9 +197,9 @@
   <title>${values.title}</title>
   ${values.favicon ? `<link rel="icon" href="${values.favicon}">` : ''}
   <style>
-    body { background: ${values.bgcolor}; font-family: ${values.font}; padding: 20px; }
+    body { background: ${values.bgcolor}; color: ${values.textcolor}; font-family: ${values.font}; padding: 20px; ${bgImageStyle} }
     header img { width: 100%; max-height: 300px; object-fit: cover; }
-    .btn { background: #333; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 20px; }
+    .btn { background: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 20px; border-radius: 6px; }
     .layout-2col main { display: flex; gap: 20px; }
     .layout-2col main > section { flex: 1; }
   </style>
@@ -182,7 +215,7 @@
       ${values.buttonText && values.buttonLink ? `<a class='btn' href='${values.buttonLink}'>${values.buttonText}</a>` : ''}
     </section>
     ${values.about ? `<section><h2>À propos</h2><p>${values.about}</p></section>` : ''}
-    ${values.email ? `<section><h2>Contact</h2><p>Contactez-moi à : <a href='mailto:${values.email}'>${values.email}</a></p></section>` : ''}
+    ${values.email ? `<section><h2>Contact</h2><p>Contactez-moi à : <a href='mailto:${values.email}' style='color:${values.textcolor}'>${values.email}</a></p></section>` : ''}
     ${values.socials ? `<section><h2>Réseaux sociaux</h2><p>${values.socials}</p></section>` : ''}
     ${values.contactForm === "yes" ? `
       <section>
@@ -194,17 +227,19 @@
           <button>Envoyer</button>
         </form>
       </section>` : ''}
+    ${mapEmbed}
   </main>
   <footer><p>${values.footer}</p></footer>
 </body>
 </html>`;
 
-      const previewFrame = `<iframe style="width:100%; height:500px; border:1px solid #ccc;" srcdoc='${siteCode.replace(/'/g, "&#39;")}'></iframe>`;
+      const previewFrame = `<iframe style="width:100%; height:500px; border:1px solid #444; background:#000;" srcdoc='${siteCode.replace(/'/g, "&#39;")}'></iframe>`;
 
       document.getElementById("preview").innerHTML = "<h2>Aperçu du site</h2>" + previewFrame;
       document.getElementById("siteCodeOutput").textContent = siteCode;
       document.getElementById("siteCodeOutput").style.display = "block";
       document.getElementById("copyBtn").style.display = "block";
+      document.getElementById("instructions").style.display = "block";
     });
 
     document.getElementById("copyBtn").addEventListener("click", function() {
